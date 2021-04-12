@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: best-stories-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: best-stories
+  template:
+    metadata:
+      labels:
+        app: best-stories
+    spec:
+      containers:
+        - name: best-stories
+          image: roque334/best-stories
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: best-stories-service
+spec:
+  selector:
+    app: best-stories
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
